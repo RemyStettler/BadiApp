@@ -9,10 +9,9 @@ public class Badi {
     private String kanton;
     private String ort;
 
-    public Badi(int id, String name, List<Becken> becken, String kanton, String ort) {
+    public Badi(int id, String name, String kanton, String ort) {
         this.id = id;
         this.name = name;
-        this.becken = becken;
         this.kanton = kanton;
         this.ort = ort;
     }
@@ -26,6 +25,11 @@ public class Badi {
                 ", kanton=" + kanton +
                 ", ort=" + ort +
                 '}';
+    }
+
+    public void addBecken(Becken becken)
+    {
+        this.becken.add(becken);
     }
 
     public int getId() {
