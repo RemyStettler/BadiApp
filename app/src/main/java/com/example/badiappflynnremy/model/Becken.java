@@ -1,10 +1,10 @@
 package com.example.badiappflynnremy.model;
 
 public class Becken {
-    private string name;
+    private String name;
     private double temperature;
 
-    public Becken(string name, double temperature) {
+    public Becken(String name, double temperature) {
         this.name = name;
         this.temperature = temperature;
     }
@@ -17,11 +17,11 @@ public class Becken {
                 '}';
     }
 
-    public string getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(string name) {
+    public void setName(String name) {
         this.name = name;
     }
 

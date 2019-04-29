@@ -1,5 +1,10 @@
 package com.example.badiappflynnremy.dal;
 
+import com.example.badiappflynnremy.model.Badi;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class BadiDao {
     public static List<Badi> getAll()
     {

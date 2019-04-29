@@ -1,5 +1,13 @@
 package com.example.badiappflynnremy.helper;
 
+import com.example.badiappflynnremy.model.Badi;
+import com.example.badiappflynnremy.model.Becken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
+
 public class WieWarmJsonParser {
     public static Badi createBadiFromJsonString(String badiJsonString) throws JSONException
     {

@@ -1,13 +1,15 @@
 package com.example.badiappflynnremy.model;
 
+import java.util.List;
+
 public class Badi {
     private int id;
-    private string name;
+    private String name;
     private List<Becken> becken;
-    private string kanton;
-    private string ort;
+    private String kanton;
+    private String ort;
 
-    public Badi(int id, string name, List<Becken> becken, string kanton, string ort) {
+    public Badi(int id, String name, List<Becken> becken, String kanton, String ort) {
         this.id = id;
         this.name = name;
         this.becken = becken;
@@ -34,11 +36,11 @@ public class Badi {
         this.id = id;
     }
 
-    public string getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(string name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -50,19 +52,19 @@ public class Badi {
         this.becken = becken;
     }
 
-    public string getKanton() {
+    public String getKanton() {
         return kanton;
     }
 
-    public void setKanton(string kanton) {
+    public void setKanton(String kanton) {
         this.kanton = kanton;
     }
 
-    public string getOrt() {
+    public String getOrt() {
         return ort;
     }
 
-    public void setOrt(string ort) {
+    public void setOrt(String ort) {
         this.ort = ort;
     }
 }
