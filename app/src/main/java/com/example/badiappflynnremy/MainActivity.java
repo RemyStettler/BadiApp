@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle(getString(R.string.main_overview));
         addBadisToClickableList();
-        System.out.println("hallo");
     }
 
     private void addBadisToClickableList() {
