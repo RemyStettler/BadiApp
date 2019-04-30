@@ -39,5 +39,6 @@ public class MainActivity extends AppCompatActivity {
         };
 
         badis.setOnItemClickListener(mListClickedHandler);
+        setTitle("Übersicht");
     }
 }
