@@ -11,6 +11,8 @@ import android.widget.ListView;
 import com.example.badiappflynnremy.dal.BadiDao;
 import com.example.badiappflynnremy.model.Badi;
 
+import java.io.Console;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle(getString(R.string.main_overview));
         addBadisToClickableList();
+        System.out.println("hallo");
     }
 
     private void addBadisToClickableList() {
