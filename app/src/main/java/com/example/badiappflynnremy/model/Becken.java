@@ -9,12 +9,15 @@ public class Becken {
         this.temperature = temperature;
     }
 
+    public Becken() {
+        this.name = name;
+        this.temperature = temperature;
+    }
+
     @Override
     public String toString() {
-        return "Becken{" +
-                "name=" + name +
-                ", temperature=" + temperature +
-                '}';
+        return name + " " + temperature +
+                "°C";
     }
 
     public String getName() {

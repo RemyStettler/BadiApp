@@ -11,7 +11,7 @@ import java.util.Iterator;
 public class WieWarmJsonParser {
     public static Badi createBadiFromJsonString(String badiJsonString) throws JSONException
     {
-        Badi badi = new Badi(0, "","","");
+        Badi badi = new Badi();
         JSONObject jsonObj = new JSONObject(badiJsonString);
         badi.setId(Integer.parseInt(jsonObj.getString("badid")));
         badi.setName(jsonObj.getString("badname"));
@@ -22,7 +22,7 @@ public class WieWarmJsonParser {
 
         while (keys.hasNext())
         {
-            Becken becken = new Becken("Schwimmbecken", 18);
+            Becken becken = new Becken();
             String key = (String) keys.next();
             JSONObject subObj = beckenJson.getJSONObject(key);
             becken.setName(subObj.getString("beckenname"));

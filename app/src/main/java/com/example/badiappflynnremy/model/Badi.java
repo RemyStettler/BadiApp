@@ -1,5 +1,6 @@
 package com.example.badiappflynnremy.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Badi {
@@ -14,21 +15,23 @@ public class Badi {
         this.name = name;
         this.kanton = kanton;
         this.ort = ort;
+        this.becken = new ArrayList<Becken>();
+    }
+
+    public Badi() {
+        this.id = id;
+        this.name = name;
+        this.kanton = kanton;
+        this.ort = ort;
+        this.becken = new ArrayList<Becken>();
     }
 
     @Override
     public String toString() {
-        return "Badi{" +
-                "id=" + id +
-                ", name=" + name +
-                ", becken=" + becken +
-                ", kanton=" + kanton +
-                ", ort=" + ort +
-                '}';
+        return name + " " + kanton + " (" + ort + ')';
     }
 
-    public void addBecken(Becken becken)
-    {
+    public void addBecken(Becken becken) {
         this.becken.add(becken);
     }
 
