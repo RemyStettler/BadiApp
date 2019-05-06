@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
                 intent.putExtra("badiId", selected.getId());
                 intent.putExtra("badiName", selected.getName());
+                intent.putExtra("ort", selected.getOrt());
                 startActivity(intent);
             }
         };

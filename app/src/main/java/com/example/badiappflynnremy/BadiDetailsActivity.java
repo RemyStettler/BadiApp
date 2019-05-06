@@ -32,8 +32,11 @@ public class BadiDetailsActivity extends AppCompatActivity {
     private int badiId;
     private ProgressBar progressBar;
     private Badi bad;
+    private Double temperaturOrt;
+    private String ort;
 
     private static final String WIE_WARM_API_URL = "https://www.wiewarm.ch/api/v1/bad.json/";
+    private static final String TEMPERATUR_API_URL = "https://api.apixu.com/v1/current.json?key=1cd7a946d4e64c6c8ec110345190605&q=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +48,23 @@ public class BadiDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         badiId = intent.getIntExtra("badiId", 0);
         String name = intent.getStringExtra("badiName");
+        ort = intent.getStringExtra("ort");
 
-        setTitle("");
+        setTitle(name);
         progressBar.setVisibility(View.VISIBLE);
 
         getBadiTemp(WIE_WARM_API_URL + badiId);
+        String JSONQueryUrl = generateUrl(ort);
+        getLocationTemp(JSONQueryUrl);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        TextView textView = findViewById(R.id.badititle);
-        textView.setText(name);
+        TextView textView;
+        textView = findViewById(R.id.ort_textview);
+        textView.setText(ort);
 
         final Button button = findViewById(R.id.button_id);
         button.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +84,7 @@ public class BadiDetailsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         getBadiTemp(WIE_WARM_API_URL + badiId);
+        getLocationTemp(generateUrl(ort));
     }
 
     @Override
@@ -88,6 +96,11 @@ public class BadiDetailsActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private String generateUrl(String ort)
+    {
+        return TEMPERATUR_API_URL + ort;
     }
 
     private void getBadiTemp(String url) {
@@ -119,6 +132,45 @@ public class BadiDetailsActivity extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
+    private void getLocationTemp(String url) {
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    temperaturOrt = WieWarmJsonParser.createOrtTempFromJsonString(response);
+                    TextView temperaturView = findViewById(R.id.temperatur_textview);
+                    temperaturView.setText(temperaturOrt + "°C");
+                } catch (JSONException e) {
+                    generateAlertDialog();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                generateAlertDialog();
+            }
+        });
+
+        queue.add(stringRequest);
+    }
+
+    private void temperatureNotFoundDialog()
+    {
+        AlertDialog.Builder dialogBuilder;
+        dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {             // Closes this activity
+                dialog.dismiss();
+            }
+        });
+        dialogBuilder.setTitle(R.string.alert);
+        dialogBuilder.setMessage(R.string.alert_description_locationtemperature);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.show();
+    }
+
     private void generateAlertDialog() {
         progressBar.setVisibility(View.GONE);
         AlertDialog.Builder dialogBuilder;
@@ -129,6 +181,7 @@ public class BadiDetailsActivity extends AppCompatActivity {
             }
         });
         dialogBuilder.setMessage("Die Badidetails konnten nicht geladen werden. Versuche es später nochmals.").setTitle("Fehler");
+        dialogBuilder.setMessage(R.string.alert_description_locationtemperature);
         AlertDialog dialog = dialogBuilder.create();
         dialog.show();
     }

@@ -35,4 +35,14 @@ public class WieWarmJsonParser {
         return badi;
     }
 
+    public static Double createOrtTempFromJsonString(String ortJsonString) throws  JSONException
+    {
+        Double temperatur = 0.0;
+        JSONObject object = new JSONObject(ortJsonString);
+        JSONObject current = object.getJSONObject("current");
+        temperatur = current.getDouble("temp_c");
+
+        return temperatur;
+    }
+
 }
