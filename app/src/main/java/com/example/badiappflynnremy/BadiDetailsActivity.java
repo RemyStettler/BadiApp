@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,11 +25,13 @@ import com.example.badiappflynnremy.model.Badi;
 import com.example.badiappflynnremy.model.Becken;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 public class BadiDetailsActivity extends AppCompatActivity {
 
     private int badiId;
     private ProgressBar progressBar;
+    private Badi bad;
 
     private static final String WIE_WARM_API_URL = "https://www.wiewarm.ch/api/v1/bad.json/";
 
@@ -42,7 +46,7 @@ public class BadiDetailsActivity extends AppCompatActivity {
         badiId = intent.getIntExtra("badiId", 0);
         String name = intent.getStringExtra("badiName");
 
-        setTitle(name);
+        setTitle("");
         progressBar.setVisibility(View.VISIBLE);
 
         getBadiTemp(WIE_WARM_API_URL + badiId);
@@ -51,6 +55,22 @@ public class BadiDetailsActivity extends AppCompatActivity {
         if (actionBar != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        TextView textView = findViewById(R.id.badititle);
+        textView.setText(name);
+
+        final Button button = findViewById(R.id.button_id);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), BadiLocationActivity.class);
+
+                intent.putExtra("badiId", bad.getId());
+                intent.putExtra("badiName", bad.getName());
+                intent.putExtra("badiAdresse", bad.getOrt());
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -79,6 +99,7 @@ public class BadiDetailsActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     Badi badi = WieWarmJsonParser.createBadiFromJsonString(response);
+                    bad = badi;
                     beckenInfosAdapter.addAll(badi.getBecken());
                     ListView badiInfoList = findViewById(R.id.badi_details_list);
                     badiInfoList.setAdapter(beckenInfosAdapter);
@@ -111,4 +132,5 @@ public class BadiDetailsActivity extends AppCompatActivity {
         AlertDialog dialog = dialogBuilder.create();
         dialog.show();
     }
+
 }

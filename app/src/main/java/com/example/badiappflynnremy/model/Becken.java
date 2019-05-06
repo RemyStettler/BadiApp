@@ -3,10 +3,20 @@ package com.example.badiappflynnremy.model;
 public class Becken {
     private String name;
     private double temperature;
+    private String status;
 
-    public Becken(String name, double temperature) {
+    public Becken(String name, double temperature, String status) {
         this.name = name;
         this.temperature = temperature;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Becken() {

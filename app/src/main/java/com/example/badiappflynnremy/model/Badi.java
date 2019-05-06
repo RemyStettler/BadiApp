@@ -9,13 +9,23 @@ public class Badi {
     private List<Becken> becken;
     private String kanton;
     private String ort;
+    private String adresse;
 
-    public Badi(int id, String name, String kanton, String ort) {
+    public Badi(int id, String name, String kanton, String ort, String adresse) {
         this.id = id;
         this.name = name;
         this.kanton = kanton;
         this.ort = ort;
         this.becken = new ArrayList<Becken>();
+        this.adresse = adresse;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
     public Badi() {
@@ -24,6 +34,7 @@ public class Badi {
         this.kanton = kanton;
         this.ort = ort;
         this.becken = new ArrayList<Becken>();
+        this.adresse = adresse;
     }
 
     @Override
