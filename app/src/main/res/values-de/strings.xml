@@ -7,4 +7,7 @@
     <string name="button_text">Siehe Ort</string>
     <string name="alert">Achtung</string>
     <string name="alert_description_locationtemperature">Die Temperatur des Ortes konnte nicht geladen werden.</string>
+    <string name="information">Keine Information verfügbar</string>
+    <string name="alert_description_data_fail">Die Daten konnten nicht geladen werden. Versuchen Sie es später.</string>
+    <string name="location">Ort</string>
 </resources>

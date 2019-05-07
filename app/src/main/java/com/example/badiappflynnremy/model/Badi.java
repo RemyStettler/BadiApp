@@ -10,24 +10,24 @@ public class Badi {
     private String kanton;
     private String ort;
     private String adresse;
-    private String öffungszeiten;
+    private String information;
 
-    public Badi(int id, String name, String kanton, String ort, String adresse, String öffnungszeiten) {
+    public Badi(int id, String name, String kanton, String ort, String adresse, String information) {
         this.id = id;
         this.name = name;
         this.kanton = kanton;
         this.ort = ort;
         this.becken = new ArrayList<Becken>();
         this.adresse = adresse;
-        this.öffungszeiten = öffnungszeiten;
+        this.information = information;
     }
 
-    public String getÖffungszeiten() {
-        return öffungszeiten;
+    public String getInformation() {
+        return information;
     }
 
-    public void setÖffungszeiten(String öffungszeiten) {
-        this.öffungszeiten = öffungszeiten;
+    public void setInformation(String information) {
+        this.information = information;
     }
 
     public String getAdresse() {
@@ -45,7 +45,7 @@ public class Badi {
         this.ort = ort;
         this.becken = new ArrayList<Becken>();
         this.adresse = adresse;
-        this.öffungszeiten = öffungszeiten;
+        this.information = information;
     }
 
     @Override

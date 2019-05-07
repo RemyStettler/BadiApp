@@ -20,17 +20,20 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.badiappflynnremy.dal.BadiDao;
+import com.example.badiappflynnremy.helper.InternetConnectionChecker;
 import com.example.badiappflynnremy.helper.WieWarmJsonParser;
 import com.example.badiappflynnremy.model.Badi;
 import com.example.badiappflynnremy.model.Becken;
 
 import org.json.JSONException;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     ArrayAdapter<Badi> badiAdapter;
     SearchView searchView;
-    private static final String WIE_WARM_API_URL = "https://www.wiewarm.ch:443/api/v1/bad.json/";
+    private static final String WIE_WARM_API_URL = "https://www.wiewarm.ch/api/v1/bad.json?search=e";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 intent.putExtra("badiId", selected.getId());
                 intent.putExtra("badiName", selected.getName());
                 intent.putExtra("ort", selected.getOrt());
+                intent.putExtra("info", selected.getInformation());
                 startActivity(intent);
             }
         };
@@ -91,28 +95,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         return false;
     }
 
-    public void getBadis(String url) {
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    Badi badi = WieWarmJsonParser.createBadiFromJsonString(response);
-                    badiAdapter.add(badi);
-                } catch (JSONException e) {
-                    generateAlertDialog();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                generateAlertDialog();
-            }
-        });
-
-        queue.add(stringRequest);
-    }
-
     private void generateAlertDialog() {
         AlertDialog.Builder dialogBuilder;
         dialogBuilder = new AlertDialog.Builder(this);
@@ -121,9 +103,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 finish();
             }
         });
-        dialogBuilder.setMessage("Die Badidetails konnten nicht geladen werden. Versuche es später nochmals.").setTitle("Fehler");
+        dialogBuilder.setMessage(R.string.alert_description_data_fail).setTitle(R.string.alert);
         AlertDialog dialog = dialogBuilder.create();
         dialog.show();
     }
-
 }

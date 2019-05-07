@@ -6,4 +6,7 @@
     <string name="button_text">See Location</string>
     <string name="alert">Alert</string>
     <string name="alert_description_locationtemperature">The Temperature of the Location could not be resolved.</string>
+    <string name="information">No Information available</string>
+    <string name="alert_description_data_fail">The Data could not get retrieved. Try again later.</string>
+    <string name="location">Location</string>
 </resources>

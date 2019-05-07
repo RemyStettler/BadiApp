@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.badiappflynnremy.helper.InternetConnectionChecker;
 import com.example.badiappflynnremy.helper.WieWarmJsonParser;
 import com.example.badiappflynnremy.model.Badi;
 import com.example.badiappflynnremy.model.Becken;
@@ -34,6 +35,7 @@ public class BadiDetailsActivity extends AppCompatActivity {
     private Badi bad;
     private Double temperaturOrt;
     private String ort;
+    private String information;
 
     private static final String WIE_WARM_API_URL = "https://www.wiewarm.ch/api/v1/bad.json/";
     private static final String TEMPERATUR_API_URL = "https://api.apixu.com/v1/current.json?key=1cd7a946d4e64c6c8ec110345190605&q=";
@@ -49,6 +51,7 @@ public class BadiDetailsActivity extends AppCompatActivity {
         badiId = intent.getIntExtra("badiId", 0);
         String name = intent.getStringExtra("badiName");
         ort = intent.getStringExtra("ort");
+        information = intent.getStringExtra("info");
 
         setTitle(name);
         progressBar.setVisibility(View.VISIBLE);
@@ -65,6 +68,10 @@ public class BadiDetailsActivity extends AppCompatActivity {
         TextView textView;
         textView = findViewById(R.id.ort_textview);
         textView.setText(ort);
+        textView = findViewById(R.id.text_info);
+        if (!information.isEmpty()) {
+            textView.setText(information);
+        }
 
         final Button button = findViewById(R.id.button_id);
         button.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +80,7 @@ public class BadiDetailsActivity extends AppCompatActivity {
 
                 intent.putExtra("badiId", bad.getId());
                 intent.putExtra("badiName", bad.getName());
-                intent.putExtra("badiAdresse", bad.getOrt());
+                intent.putExtra("badiOrt", bad.getOrt());
                 startActivity(intent);
             }
         });
@@ -98,12 +105,12 @@ public class BadiDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private String generateUrl(String ort)
-    {
+    private String generateUrl(String ort) {
         return TEMPERATUR_API_URL + ort;
     }
 
     private void getBadiTemp(String url) {
+
         final ArrayAdapter<Becken> beckenInfosAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1);
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -156,8 +163,7 @@ public class BadiDetailsActivity extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
-    private void temperatureNotFoundDialog()
-    {
+    private void temperatureNotFoundDialog() {
         AlertDialog.Builder dialogBuilder;
         dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
