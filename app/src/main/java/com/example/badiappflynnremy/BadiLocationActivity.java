@@ -32,6 +32,7 @@ public class BadiLocationActivity extends AppCompatActivity {
     Double longitude;
     GeoPoint geoPoint;
 
+    //In der OnCreate Methode wird hauptsächlich die Karte initialisiert und angezeigt.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,23 +72,16 @@ public class BadiLocationActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        //this will refresh the osmdroid configuration on resuming.
-        //if you make changes to the configuration, use
-        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        //Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
-        map.onResume(); //needed for compass, my location overlays, v6.0.0 and up
+        map.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        //this will refresh the osmdroid configuration on resuming.
-        //if you make changes to the configuration, use
-        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        //Configuration.getInstance().save(this, prefs);
-        map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
+        map.onPause();
     }
 
+    //Latitude und Longitude vom Ort holen, damit man den Startpunkt der Karte dorthin setzen kann.
     private void getBadiOrt() {
         if (Geocoder.isPresent()) {
             try {
@@ -108,6 +102,7 @@ public class BadiLocationActivity extends AppCompatActivity {
         }
     }
 
+    //Generelle Fehlermeldung
     private void generateAlertDialog() {
         AlertDialog.Builder dialogBuilder;
         dialogBuilder = new AlertDialog.Builder(this);

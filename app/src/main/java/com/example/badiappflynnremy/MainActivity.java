@@ -13,21 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.badiappflynnremy.dal.BadiDao;
-import com.example.badiappflynnremy.helper.InternetConnectionChecker;
-import com.example.badiappflynnremy.helper.WieWarmJsonParser;
 import com.example.badiappflynnremy.model.Badi;
-import com.example.badiappflynnremy.model.Becken;
-
-import org.json.JSONException;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 

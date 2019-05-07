@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class WieWarmJsonParser {
+
+    //Entnimmt die Daten aus dem JSON-String und verarbeitet sie und erstellt ein Objekt.
     public static Badi createBadiFromJsonString(String badiJsonString) throws JSONException {
         Badi badi = new Badi();
         JSONObject jsonObj = new JSONObject(badiJsonString);
@@ -40,6 +42,7 @@ public class WieWarmJsonParser {
         return badi;
     }
 
+    //Entnimmt die Daten aus dem JSON-String und gibt die Temperatur des Ortes als Double zurück
     public static Double createOrtTempFromJsonString(String ortJsonString) throws JSONException {
         Double temperatur = 0.0;
         JSONObject object = new JSONObject(ortJsonString);

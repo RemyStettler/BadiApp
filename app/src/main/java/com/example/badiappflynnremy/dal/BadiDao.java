@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BadiDao {
+
+    //Badi "Datenbank"
     public static List<Badi> getAll() {
         List<Badi> availableBadis = new ArrayList<>();
         availableBadis.add(new Badi(71, "Schwimmbad", "BE", "Aarberg", "Keine Adresse vorhanden.", "Die Messdaten werden von Schweiz Tourismus (www.myswitzerland.com) zur Verfügung \r\ngestellt.\r\n\r\nAngaben ohne Gewähr.\r\n"));

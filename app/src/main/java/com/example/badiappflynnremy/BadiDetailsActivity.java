@@ -20,15 +20,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.badiappflynnremy.helper.InternetConnectionChecker;
 import com.example.badiappflynnremy.helper.WieWarmJsonParser;
 import com.example.badiappflynnremy.model.Badi;
 import com.example.badiappflynnremy.model.Becken;
 
 import org.json.JSONException;
-import org.w3c.dom.Text;
 
 public class BadiDetailsActivity extends AppCompatActivity {
+
+    //Einzelansicht der Badi
 
     private int badiId;
     private ProgressBar progressBar;
@@ -37,6 +37,7 @@ public class BadiDetailsActivity extends AppCompatActivity {
     private String ort;
     private String information;
 
+    //API URL Strings
     private static final String WIE_WARM_API_URL = "https://www.wiewarm.ch/api/v1/bad.json/";
     private static final String TEMPERATUR_API_URL = "https://api.apixu.com/v1/current.json?key=1cd7a946d4e64c6c8ec110345190605&q=";
 
@@ -109,6 +110,7 @@ public class BadiDetailsActivity extends AppCompatActivity {
         return TEMPERATUR_API_URL + ort;
     }
 
+    //Temperaturen der Becken aus der Wiewarm-API holen und in Adapter füllen
     private void getBadiTemp(String url) {
 
         final ArrayAdapter<Becken> beckenInfosAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1);
@@ -139,6 +141,7 @@ public class BadiDetailsActivity extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
+    //Die Temperatur des Ortes von apixu-API holen
     private void getLocationTemp(String url) {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -163,6 +166,7 @@ public class BadiDetailsActivity extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
+    //Fehlermeldung wenn die Temperatur des Ortes nicht geholt werden konnte
     private void temperatureNotFoundDialog() {
         AlertDialog.Builder dialogBuilder;
         dialogBuilder = new AlertDialog.Builder(this);
@@ -177,6 +181,7 @@ public class BadiDetailsActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    //Generelle Fehlermeldung
     private void generateAlertDialog() {
         progressBar.setVisibility(View.GONE);
         AlertDialog.Builder dialogBuilder;
@@ -186,8 +191,7 @@ public class BadiDetailsActivity extends AppCompatActivity {
                 finish();
             }
         });
-        dialogBuilder.setMessage("Die Badidetails konnten nicht geladen werden. Versuche es später nochmals.").setTitle("Fehler");
-        dialogBuilder.setMessage(R.string.alert_description_locationtemperature);
+        dialogBuilder.setMessage(R.string.alert_description_data_fail).setTitle(R.string.alert);
         AlertDialog dialog = dialogBuilder.create();
         dialog.show();
     }
