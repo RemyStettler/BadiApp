@@ -36,6 +36,28 @@ public class BadiAppUnitTest {
             "      \"wetter_date\": \"2017-11-28 00:00:00\",\n" +
             "      \"wetter_date_pretty\": \"28.11.\"\n" + "    }\n" + "  ]\n" + "}";
 
+    private static final String testJSON_noId = "{\n" + " ,\n" +
+            "  \"badname\": \"Schwimmbad\",\n" + "  \"kanton\": \"BE\",\n" + "  \"plz\": null,\n" +
+            "  \"ort\": \"Bümpliz\",\n" + "  \"adresse1\": \"Bahnhöheweg 70\",\n" +
+            "  \"adresse2\": null,\n" + "  \"email\": \"info@bbcag.ch\",\n" + "  \"telefon\": null,\n" +
+            "  \"www\": \"www.berufsbildungscenter.ch\",\n" + "  \"long\": null,\n" +
+            "  \"lat\": null,\n" + "  \"zeiten\": null,\n" + "  \"preise\": null,\n" +
+            "  \"info\": \"Keine speziellen Angaben\",\n" + "  \"wetterort\": \"Bern\",\n" +
+            "  \"uv_station_name\": \"Bern\",\n" + "  \"uv_wert\": 1,\n" +
+            "  \"uv_date\": \"2017-11-28 00:00:00\",\n" + "  \"uv_date_pretty\": \"28.11.\",\n" +
+            "  \"becken\": {\n" + "    \"Schwimmbecken\": {\n" + "      \"beckenid\": 185,\n" +
+            "      \"beckenname\": \"Schwimmbecken\",\n" + "      \"temp\": \"22.0\",\n" +
+            "      \"date\": \"2017-07-04 08:02:00\",\n" + "      \"typ\": \"Hallenbad\",\n" +
+            "      \"status\": \"geöffnet\",\n" + "      \"smskeywords\": \";BEUMPLIZ;\",\n" +
+            "      \"smsname\": \"Bbc Schwimmbad\",\n" + "      \"ismain\": \"T   \",\n" +
+            "      \"date_pretty\": \"04.07.\"\n" + "    }\n" + "  },\n" + "  \"bilder\": [],\n" +
+            "  \"wetter\": [\n" + "    {\n" + "      \"wetter_symbol\": 9,\n" +
+            "      \"wetter_temp\": \"3.0\",\n" + "      \"wetter_date\": \"2017-11-29 00:00:00\",\n" +
+            "      \"wetter_date_pretty\": \"29.11.\"\n" + "    },\n" + "    {\n" +
+            "      \"wetter_symbol\": 15,\n" + "      \"wetter_temp\": \"4.0\",\n" +
+            "      \"wetter_date\": \"2017-11-28 00:00:00\",\n" +
+            "      \"wetter_date_pretty\": \"28.11.\"\n" + "    }\n" + "  ]\n" + "}";
+
     @Test
     public void badiDao_BadiGenerationTest() {
         List<Badi> badiList = new ArrayList<Badi>();
@@ -57,39 +79,40 @@ public class BadiAppUnitTest {
     }
 
     @Test
-    public void wieWarmJsonParser_createBadiNameTest() {
+    public void wieWarmJsonParser_createBadiWithoutIdTest() {
         Badi testBadi = null;
         try {
-            testBadi = WieWarmJsonParser.createBadiFromJsonString(testJSON);
+            testBadi = WieWarmJsonParser.createBadiFromJsonString(testJSON_noId);
         } catch (JSONException e) {
             e.printStackTrace();
         }      // checks if the id from the badi equals the expected 9000
 
-        assertEquals("Schwimmbad", testBadi.getName());
+        assertEquals(null, testBadi);
     }
 
     @Test
     public void wieWarmJsonParser_createBadiOrtTest() {
-        Badi testBadi = null;
+        Double expected = 45.0;
+        Double actual = 0.0;
+        String json = "{"+ "\"current\"" + ":" + "{" + "\"temp_c\"" + ":" + "45.0" + "}" + "}";
         try {
-            testBadi = WieWarmJsonParser.createBadiFromJsonString(testJSON);
+            actual = WieWarmJsonParser.createOrtTempFromJsonString(json);
         } catch (JSONException e) {
             e.printStackTrace();
         }      // checks if the id from the badi equals the expected 9000
-
-        assertEquals("Bümpliz", testBadi.getOrt());
+        assertEquals(expected, actual);
     }
 
-
     @Test
-    public void wieWarmJsonParser_createBadiTest() {
-        Badi testBadi = null;
+    public void wieWarmJsonParser_createBadiOrtTestWithoutTemp() {
+        Double expected = 0.0;
+        Double actual = 0.0;
+        String json = "{"+ "\"current\"" + ":" + "{" + "}";
         try {
-            testBadi = WieWarmJsonParser.createBadiFromJsonString(testJSON);
+            actual = WieWarmJsonParser.createOrtTempFromJsonString(json);
         } catch (JSONException e) {
             e.printStackTrace();
         }      // checks if the id from the badi equals the expected 9000
-
-        assertEquals("BE", testBadi.getKanton());
+        assertEquals(expected, actual);
     }
 }
