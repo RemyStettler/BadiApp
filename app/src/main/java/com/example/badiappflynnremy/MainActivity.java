@@ -82,16 +82,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         return false;
     }
 
-    private void generateAlertDialog() {
-        AlertDialog.Builder dialogBuilder;
-        dialogBuilder = new AlertDialog.Builder(this);
-        dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {             // Closes this activity
-                finish();
-            }
-        });
-        dialogBuilder.setMessage(R.string.alert_description_data_fail).setTitle(R.string.alert);
-        AlertDialog dialog = dialogBuilder.create();
-        dialog.show();
-    }
+//    private void generateAlertDialog() {
+//        AlertDialog.Builder dialogBuilder;
+//        dialogBuilder = new AlertDialog.Builder(this);
+//        dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int id) {             // Closes this activity
+//                finish();
+//            }
+//        });
+//        dialogBuilder.setMessage(R.string.alert_description_data_fail).setTitle(R.string.alert);
+//        AlertDialog dialog = dialogBuilder.create();
+//        dialog.show();
+//    }
 }

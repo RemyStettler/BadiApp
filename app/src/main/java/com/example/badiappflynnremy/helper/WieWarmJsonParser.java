@@ -24,7 +24,6 @@ public class WieWarmJsonParser {
         badi.setKanton(jsonObj.getString("kanton"));
         badi.setOrt(jsonObj.getString("ort"));
         badi.setAdresse(jsonObj.getString("adresse1"));
-        String info = jsonObj.getString("info");
         badi.setInformation(jsonObj.getString("info"));
         JSONObject beckenJson = jsonObj.getJSONObject("becken");
         Iterator keys = beckenJson.keys();
