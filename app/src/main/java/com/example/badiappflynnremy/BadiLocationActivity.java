@@ -115,5 +115,4 @@ public class BadiLocationActivity extends AppCompatActivity {
         AlertDialog dialog = dialogBuilder.create();
         dialog.show();
     }
-
 }

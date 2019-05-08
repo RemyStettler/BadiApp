@@ -72,10 +72,8 @@ public class BadiAppUnitTest {
             testBadi = WieWarmJsonParser.createBadiFromJsonString(testJSON);
         } catch (JSONException e) {
             e.printStackTrace();
-        }      // checks if the id from the badi equals the expected 9000
-
+        }
         assertEquals(9000, testBadi.getId());
-
     }
 
     @Test
@@ -84,22 +82,20 @@ public class BadiAppUnitTest {
         try {
             testBadi = WieWarmJsonParser.createBadiFromJsonString(testJSON_noId);
         } catch (JSONException e) {
-            e.printStackTrace();
-        }      // checks if the id from the badi equals the expected 9000
-
-        assertEquals(null, testBadi);
+            assertEquals(null, testBadi);
+        }
     }
 
     @Test
     public void wieWarmJsonParser_createBadiOrtTest() {
         Double expected = 45.0;
         Double actual = 0.0;
-        String json = "{"+ "\"current\"" + ":" + "{" + "\"temp_c\"" + ":" + "45.0" + "}" + "}";
+        String json = "{" + "\"current\"" + ":" + "{" + "\"temp_c\"" + ":" + "45.0" + "}" + "}";
         try {
             actual = WieWarmJsonParser.createOrtTempFromJsonString(json);
         } catch (JSONException e) {
             e.printStackTrace();
-        }      // checks if the id from the badi equals the expected 9000
+        }
         assertEquals(expected, actual);
     }
 
@@ -107,12 +103,11 @@ public class BadiAppUnitTest {
     public void wieWarmJsonParser_createBadiOrtTestWithoutTemp() {
         Double expected = 0.0;
         Double actual = 0.0;
-        String json = "{"+ "\"current\"" + ":" + "{" + "}";
+        String json = "{" + "\"current\"" + ":" + "{" + "}";
         try {
             actual = WieWarmJsonParser.createOrtTempFromJsonString(json);
         } catch (JSONException e) {
-            e.printStackTrace();
-        }      // checks if the id from the badi equals the expected 9000
-        assertEquals(expected, actual);
+            assertEquals(expected, actual);
+        }
     }
 }
